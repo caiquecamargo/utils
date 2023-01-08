@@ -1,11 +1,12 @@
 {
-  "name": "utils",
+  "name": "@caiquecamargo/utils",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "generate": "npx zx scripts/generator.mjs"
+    "generate": "npx zx scripts/generator.mjs",
+    "publish": "npx zx scripts/publisher.mjs"
   },
   "keywords": [],
   "author": "",

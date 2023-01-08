@@ -1,7 +1,8 @@
 /// <reference types="vitest" />
+import typescript from "@rollup/plugin-typescript";
 import path from "path";
+import ttsc from "ttypescript";
 import { defineConfig } from "vite";
-import dts from "vite-plugin-dts";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -10,7 +11,7 @@ export default defineConfig({
     lib: {
       entry: path.resolve(__dirname, "index.ts"),
       name: "curry",
-      fileName: (format) => `index.${format}.js`,
+      fileName: "index",
       formats: ["es"],
     },
     rollupOptions: {
@@ -19,8 +20,12 @@ export default defineConfig({
     },
   },
   plugins: [
-    dts({
-      entryRoot: ".",
+    typescript({
+      typescript: ttsc,
+      sourceMap: true,
+      declaration: true,
+      outDir: "dist",
+      exclude: ["src/**/*.spec.ts"],
     }),
   ],
   test: {

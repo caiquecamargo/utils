@@ -1,7 +1,3 @@
-export function curry(): string {
-  return "curry";
-}
-
 export type Func<TArgs = unknown, KReturn = unknown | void> = (
   ...args: TArgs[]
 ) => KReturn;

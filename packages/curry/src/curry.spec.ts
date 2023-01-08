@@ -1,11 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
-import { chain, curry } from "./curry";
+import { chain } from "./curry";
 
 describe("curry", () => {
-  it("should work", () => {
-    expect(curry()).toEqual("curry");
-  });
-
   it("should run all functions", () => {
     const funcOne = vi.fn();
     const funcTwo = vi.fn();

@@ -1,0 +1,54 @@
+{
+  "name": "@caiquecamargo/number",
+  "version": "0.0.3",
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/caiquecamargo/utils.git"
+  },
+  "author": "Caique de Camargo",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest watch",
+    "test:coverage": "vitest --coverage",
+    "dev": "vite --host",
+    "build": "vite build",
+    "serve": "vite preview --host 0.0.0.0",
+    "package": "pnpm build",
+    "prepublishOnly": "pnpm package",
+    "pub": "pnpm publish"
+  },
+  "dependencies": {
+    "typia": "^3.4.18"
+  },
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^11.0.0",
+    "@types/node": "^18.11.17",
+    "@vitest/coverage-c8": "^0.26.3",
+    "happy-dom": "^8.1.3",
+    "ts-node": "^10.9.1",
+    "tslib": "^2.4.1",
+    "ttypescript": "^1.5.15",
+    "typescript": "^4.9.4",
+    "vite": "^4.0.3",
+    "vitest": "^0.26.2"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
+}

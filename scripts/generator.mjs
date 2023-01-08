@@ -2,6 +2,10 @@
 import { spinner } from "zx/experimental";
 import "zx/globals";
 
+/**
+ * generate <name>
+ */
+
 $.verbose = false;
 
 const [_name] = argv._;
@@ -13,7 +17,7 @@ const packageJson = await fs.readJSON(
   "./scripts/templates/package.template.json"
 );
 
-packageJson.name = `@utils/${name}`;
+packageJson.name = `@caiquecamargo/${name}`;
 await fs.writeJSON(`./packages/${name}/package.json`, packageJson, {
   spaces: 2,
 });
@@ -22,6 +26,9 @@ const tsconfig = await fs.readJSON(
   "./scripts/templates/tsconfig.template.json"
 );
 await fs.writeJSON(`./packages/${name}/tsconfig.json`, tsconfig, { spaces: 2 });
+
+const npmrc = await fs.readFile("./scripts/templates/.npmrc.template");
+await fs.writeFile(`./packages/${name}/.npmrc`, npmrc);
 
 const viteConfig = await fs.readFile(
   "./scripts/templates/vite.config.template.ts"

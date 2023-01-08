@@ -1,16 +1,11 @@
+import { describe, expect, it } from "vitest";
 import {
-  isArray,
   isArrayNullOrEmpty,
-  isBoolean,
   isFloat,
-  isFunction,
   isInt,
   isNil,
   isNotNil,
-  isNumber,
-  isObject,
   isObjectNullOrEmpty,
-  isString,
   isStringNullOrEmpty,
 } from "./existence";
 
@@ -48,13 +43,6 @@ describe("existence", () => {
     }
   );
 
-  it.each(makeBaseTestEntry(4, 5))(
-    "should return true if %p is a string",
-    (value, expected) => {
-      expect(isString(value)).toEqual(expected);
-    }
-  );
-
   it.each(makeBaseTestEntry(0, 1, 4))(
     "should return true if %p is a null, undefined or empty string",
     (value, expected) => {
@@ -62,31 +50,10 @@ describe("existence", () => {
     }
   );
 
-  it.each(makeBaseTestEntry(8, 9))(
-    "should return true if %p is an object",
-    (value, expected) => {
-      expect(isObject(value)).toEqual(expected);
-    }
-  );
-
   it.each(makeBaseTestEntry(0, 1, 8))(
     "should return true is %p is null, undefined or empty object",
     (value, expected) => {
       expect(isObjectNullOrEmpty(value)).toEqual(expected);
-    }
-  );
-
-  it.each(makeBaseTestEntry(12))(
-    "should return true if %p is a function",
-    (value, expected) => {
-      expect(isFunction(value)).toEqual(expected);
-    }
-  );
-
-  it.each(makeBaseTestEntry(10, 11))(
-    "should return true if %p is an array",
-    (value, expected) => {
-      expect(isArray(value)).toEqual(expected);
     }
   );
 
@@ -108,20 +75,6 @@ describe("existence", () => {
     "should return true if %p is a float",
     (value, expected) => {
       expect(isFloat(value)).toEqual(expected);
-    }
-  );
-
-  it.each(makeBaseTestEntry(2, 3, 14, 15, 16, 17))(
-    "should return true if %p is a number",
-    (value, expected) => {
-      expect(isNumber(value)).toEqual(expected);
-    }
-  );
-
-  it.each(makeBaseTestEntry(6, 7))(
-    "should return true if %p is a boolean",
-    (value, expected) => {
-      expect(isBoolean(value)).toEqual(expected);
     }
   );
 });

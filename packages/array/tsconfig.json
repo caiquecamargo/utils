@@ -14,7 +14,12 @@
       "esnext",
       "dom"
     ],
-    "baseUrl": "."
+    "baseUrl": ".",
+    "plugins": [
+      {
+        "transform": "typia/lib/transform"
+      }
+    ]
   },
   "include": [
     "index.ts",

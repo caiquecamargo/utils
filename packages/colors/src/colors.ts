@@ -1,5 +1,6 @@
 import colors from "tailwindcss/colors";
 import { DefaultColors } from "tailwindcss/types/generated/colors";
+import { Maybe } from "../../helpers/dist";
 
 type DefinedColor = {
   [key: string]: {
@@ -42,7 +43,15 @@ export const sRGBToHex = (srgb: string) => {
   return "#" + r.padStart(2, "0") + g.padStart(2, "0") + b.padStart(2, "0");
 };
 
-export const hexToRGB = (hex: string, asArray = false, isPct = false) => {
+type HexToRGBOptions = {
+  asArray?: boolean;
+  isPct?: boolean;
+};
+
+export const hexToRGB = (
+  hex: string,
+  { asArray, isPct }: Maybe<HexToRGBOptions> = {}
+) => {
   hex = hex.replace("#", "");
   let r = 0,
     g = 0,
@@ -62,6 +71,8 @@ export const hexToRGB = (hex: string, asArray = false, isPct = false) => {
     r = +(r / 255);
     g = +(g / 255);
     b = +(b / 255);
+
+    return [r, g, b];
   }
 
   if (asArray) return [r, g, b];
@@ -86,18 +97,16 @@ export const colorToRGB = (color: string, asArray = true, isPct = true) => {
   const [name, modifier] = color.split("-");
 
   if (name in definedColors) {
-    return hexToRGB(
-      getDefinedColor(name, modifier),
+    return hexToRGB(getDefinedColor(name, modifier), {
       asArray,
-      isPct
-    ) as number[];
+      isPct,
+    }) as number[];
   }
 
   if (name in colors) {
     return hexToRGB(
       getDefaultColor(name as keyof DefaultColors, modifier as never),
-      asArray,
-      isPct
+      { asArray, isPct }
     ) as number[];
   }
 

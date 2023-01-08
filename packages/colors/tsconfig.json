@@ -10,11 +10,13 @@
     "sourceMap": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "lib": [
-      "esnext",
-      "dom"
-    ],
-    "baseUrl": "."
+    "lib": ["esnext", "dom"],
+    "baseUrl": ".",
+    "plugins": [
+      {
+        "transform": "typia/lib/transform"
+      }
+    ]
   },
   "include": [
     "index.ts",
@@ -22,8 +24,5 @@
     "components/**/*.vue",
     "test/**/*.spec.ts"
   ],
-  "exclude": [
-    "node_modules",
-    "test"
-  ]
+  "exclude": ["node_modules", "test"]
 }
