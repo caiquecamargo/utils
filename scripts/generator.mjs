@@ -8,6 +8,13 @@ import "zx/globals";
 
 $.verbose = false;
 
+const getLatestVersion = async () => {
+  const dirs = await fs.readdir("./packages");
+  const packageJson = await readJSON(`./packages/${dirs[0]}/package.json`);
+
+  return packageJson.version;
+};
+
 const [_name] = argv._;
 const name = _name || (await question("What is the name of the package? "));
 
@@ -18,6 +25,7 @@ const packageJson = await fs.readJSON(
 );
 
 packageJson.name = `@caiquecamargo/${name}`;
+packageJson.version = await getLatestVersion();
 await fs.writeJSON(`./packages/${name}/package.json`, packageJson, {
   spaces: 2,
 });

@@ -66,3 +66,54 @@ export type RecursiveAccessKeyOf<TObj extends object> = {
 export type OnlyRequired<T> = T extends object
   ? { [K in keyof T as {} extends Pick<T, K> ? never : K]: OnlyRequired<T[K]> }
   : T;
+
+export type Primitive =
+  | string
+  | Function
+  | number
+  | boolean
+  | Symbol
+  | undefined
+  | null;
+
+export type UnDot<T extends string> = T extends `${infer A}.${infer B}`
+  ? [A, ...UnDot<B>]
+  : [T];
+
+export type Dot<T extends string[]> = T["length"] extends 0
+  ? never
+  : T["length"] extends 1
+  ? `${T[0]}`
+  : `${T[0]}.${Dot<Tail<T>>}`;
+
+// type undotted = UnDot<"a.b.c">;
+// type tailed = Tail<undotted>;
+// type dotted = Dot<tailed>;
+
+type Tail<T extends any[]> = ((...t: T) => void) extends (
+  h: any,
+  ...r: infer R
+) => void
+  ? R
+  : never;
+
+export type DeepOmit<T, Path extends string> = T extends object
+  ? UnDot<Path>["length"] extends 1
+    ? Omit<T, Path>
+    : {
+        [K in keyof T]: K extends UnDot<Path>[0]
+          ? DeepOmit<T[K], Dot<Tail<UnDot<Path>>>>
+          : T[K];
+      }
+  : T;
+
+// type Input = {
+//   a: string;
+//   b: {
+//     c: string;
+//     d: string;
+//     e: string;
+//   };
+// };
+
+// type Output = DeepOmit<Input, "b.c" | "b.d">;

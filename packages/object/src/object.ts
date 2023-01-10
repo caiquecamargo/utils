@@ -1,4 +1,5 @@
 import {
+  DeepOmit,
   ObjectLike,
   RecursiveAccessKeyOf,
   isArray,
@@ -56,7 +57,7 @@ export const omit = <
 >(
   object: T,
   keys: TKeys[]
-): Omit<T, TKeys> => {
+): DeepOmit<T, TKeys> => {
   return Object.keys(object).reduce((acc, key) => {
     const _key = key as TKeys;
 
@@ -75,7 +76,20 @@ export const omit = <
     }
 
     return acc;
-  }, {} as T);
+  }, {} as T) as DeepOmit<T, TKeys>;
+};
+
+export const tryOmit = <
+  T extends Record<PropertyKey, unknown>,
+  TKeys extends RecursiveAccessKeyOf<T>
+>(
+  object: T,
+  keys: string[]
+): Omit<T, TKeys> => {
+  return omit(object, keys as RecursiveAccessKeyOf<T>[]) as unknown as Omit<
+    T,
+    TKeys
+  >;
 };
 
 /**
@@ -120,6 +134,19 @@ export const pick = <
 
     return undefinedless(acc);
   }, {} as T);
+};
+
+export const tryPick = <
+  T extends Record<PropertyKey, unknown>,
+  TKeys extends RecursiveAccessKeyOf<T>
+>(
+  object: T,
+  keys: string[]
+): Pick<T, TKeys> => {
+  return pick(object, keys as RecursiveAccessKeyOf<T>[]) as unknown as Pick<
+    T,
+    TKeys
+  >;
 };
 
 export const undefinedless = <T extends ObjectLike | ArrayLike<unknown>>(

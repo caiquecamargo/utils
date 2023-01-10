@@ -1,6 +1,6 @@
 {
   "name": "@caiquecamargo/dates",
-  "version": "0.0.3",
+  "version": "0.0.10",
   "files": [
     "dist"
   ],
@@ -25,16 +25,13 @@
     "test:coverage": "vitest --coverage",
     "dev": "vite --host",
     "build": "vite build",
-    "serve": "vite preview --host 0.0.0.0",
-    "package": "pnpm build",
-    "prepublishOnly": "pnpm package",
-    "pub": "pnpm publish"
+    "serve": "vite preview --host 0.0.0.0"
   },
   "dependencies": {
-    "@caiquecamargo/number": "workspace:*",
-    "typia": "^3.4.18"
+    "@caiquecamargo/number": "^0.0.10"
   },
   "devDependencies": {
+    "typia": "^3.4.18",
     "@rollup/plugin-typescript": "^11.0.0",
     "@types/node": "^18.11.17",
     "@vitest/coverage-c8": "^0.26.3",
@@ -46,6 +43,7 @@
     "vite": "^4.0.3",
     "vitest": "^0.26.2"
   },
+  "peerDependencies": {},
   "keywords": [],
   "license": "ISC",
   "publishConfig": {

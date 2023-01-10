@@ -3,21 +3,21 @@ import { is } from "typia";
 
 export interface DifferenceCreate {
   type: "CREATE";
-  path: (string | number)[];
-  value: any;
+  path: string;
+  value: unknown;
 }
 
 export interface DifferenceRemove {
   type: "REMOVE";
-  path: (string | number)[];
-  oldValue: any;
+  path: string;
+  oldValue: unknown;
 }
 
 export interface DifferenceChange {
   type: "CHANGE";
-  path: (string | number)[];
-  value: any;
-  oldValue: any;
+  path: string;
+  value: unknown;
+  oldValue: unknown;
 }
 
 export type Difference = DifferenceCreate | DifferenceRemove | DifferenceChange;
@@ -27,6 +27,18 @@ interface Options {
 }
 
 const richTypes = { Date: true, RegExp: true, String: true, Number: true };
+
+const createPath = (path: (string | number)[]): string => {
+  if (is<number[]>(path)) return path.join(",");
+
+  return path.join(".");
+};
+
+const getPath = (path: string): (string | number)[] => {
+  if (path.includes(",")) return path.split(",").map((p) => +p);
+
+  return path.split(".");
+};
 
 export const diff = (
   obj: ObjectLike | ArrayLike<unknown>,
@@ -44,7 +56,7 @@ export const diff = (
     if (!(key in newObj)) {
       diffs.push({
         type: "REMOVE",
-        path: [path],
+        path: createPath([path]),
         oldValue: obj[key],
       });
       continue;
@@ -72,7 +84,9 @@ export const diff = (
       diffs.push.apply(
         diffs,
         nestedDiffs.map((difference) => {
-          difference.path.unshift(path);
+          const _path = getPath(difference.path);
+          _path.unshift(path);
+          difference.path = createPath(_path);
           return difference;
         })
       );
@@ -86,7 +100,7 @@ export const diff = (
       )
     ) {
       diffs.push({
-        path: [path],
+        path: createPath([path]),
         type: "CHANGE",
         value: newObjKey,
         oldValue: objKey,
@@ -99,7 +113,7 @@ export const diff = (
     if (!(key in obj)) {
       diffs.push({
         type: "CREATE",
-        path: [isNewObjArray ? +key : key],
+        path: createPath([isNewObjArray ? +key : key]),
         value: newObj[key],
       });
     }

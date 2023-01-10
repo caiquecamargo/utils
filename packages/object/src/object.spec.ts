@@ -1,6 +1,6 @@
 import { RecursiveAccessKeyOf } from "@caiquecamargo/helpers";
 import { describe, expect, it } from "vitest";
-import { emptyless, omit, pick } from "./object";
+import { emptyless, omit, pick, tryOmit, tryPick } from "./object";
 
 describe("object", () => {
   it.each([
@@ -18,6 +18,9 @@ describe("object", () => {
     ],
   ])(`should omit the given keys`, (obj, keys, expected) => {
     expect(omit(obj, keys as RecursiveAccessKeyOf<typeof obj>[])).toEqual(
+      expected
+    );
+    expect(tryOmit(obj, keys as RecursiveAccessKeyOf<typeof obj>[])).toEqual(
       expected
     );
   });
@@ -41,8 +44,8 @@ describe("object", () => {
       { a: { b: { c: { d: { e: 1 } } } } },
     ],
   ])("should pick from %o props %o", (object: any, fields: any[], expected) => {
-    const actual = pick(object, fields);
-    expect(actual).toEqual(expected);
+    expect(pick(object, fields)).toEqual(expected);
+    expect(tryPick(object, fields)).toEqual(expected);
   });
 
   it.each([

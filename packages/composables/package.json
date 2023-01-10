@@ -1,6 +1,6 @@
 {
   "name": "@caiquecamargo/composables",
-  "version": "0.0.3",
+  "version": "0.0.10",
   "files": [
     "dist"
   ],
@@ -25,10 +25,7 @@
     "test:coverage": "vitest --coverage",
     "dev": "vite --host",
     "build": "vite build",
-    "serve": "vite preview --host 0.0.0.0",
-    "package": "pnpm build",
-    "prepublishOnly": "pnpm package",
-    "pub": "pnpm publish"
+    "serve": "vite preview --host 0.0.0.0"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "^11.0.0",
@@ -39,18 +36,17 @@
     "tslib": "^2.4.1",
     "ttypescript": "^1.5.15",
     "typescript": "^4.9.4",
+    "vue": "^3.2.45",
     "vite": "^4.0.3",
-    "vitest": "^0.26.2"
+    "vitest": "^0.26.2",
+    "typia": "^3.4.18"
   },
-  "keywords": [],
-  "license": "ISC",
   "peerDependencies": {
     "vue": "^3.2.45"
   },
-  "dependencies": {
-    "typia": "^3.4.18",
-    "vue": "^3.2.45"
-  },
+  "dependencies": {},
+  "keywords": [],
+  "license": "ISC",
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"

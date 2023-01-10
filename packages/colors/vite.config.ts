@@ -16,7 +16,7 @@ export default defineConfig({
     },
     rollupOptions: {
       treeshake: true,
-      external: ["tailwindcss/colors"],
+      external: ["tailwindcss/colors", "@caiquecamargo/helpers"],
     },
   },
   plugins: [
