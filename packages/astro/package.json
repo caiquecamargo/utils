@@ -1,0 +1,28 @@
+{
+  "name": "@caiquecamargo/astro",
+  "version": "0.0.56",
+  "description": "Astro components",
+  "type": "module",
+  "main": "index.ts",
+  "files": [
+    "index.ts",
+    "components"
+  ],
+  "exports": {
+    ".": {
+      "import": "./index.ts"
+    }
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "echo \"not necessary\""
+  },
+  "devDependencies": {
+    "astro": "^1.9.2",
+    "unplugin-icons": "^0.15.1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {}
+}

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { addHours, dateISO, dates, weekISO } from "./dates";
+import { addHours, dateISO, weekISO } from "./dates";
 
 export const isoMatcher = expect.stringMatching(
   /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/
@@ -8,10 +8,6 @@ export const isoMatcher = expect.stringMatching(
 export const dateMatcher = expect.any(Date);
 
 describe("dates", () => {
-  it("should work", () => {
-    expect(dates()).toEqual("dates");
-  });
-
   it("should create date in ISO format", () => {
     const date = dateISO();
     expect(date).toEqual(isoMatcher);

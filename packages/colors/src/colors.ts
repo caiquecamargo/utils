@@ -1,6 +1,6 @@
+import { Maybe } from "@caiquecamargo/helpers";
 import colors from "tailwindcss/colors";
 import { DefaultColors } from "tailwindcss/types/generated/colors";
-import { Maybe } from "../../helpers/dist";
 
 type DefinedColor = {
   [key: string]: {

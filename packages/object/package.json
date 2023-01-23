@@ -1,17 +1,19 @@
 {
   "name": "@caiquecamargo/object",
-  "version": "0.0.10",
+  "version": "0.0.56",
   "files": [
     "dist"
   ],
   "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
+  "main": "./dist/index.es.js",
+  "module": "./dist/index.es.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.cjs.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.es.js"
     }
   },
   "repository": {
@@ -28,7 +30,7 @@
     "serve": "vite preview --host 0.0.0.0"
   },
   "dependencies": {
-    "@caiquecamargo/helpers": "^0.0.10"
+    "@caiquecamargo/helpers": "^0.0.56"
   },
   "devDependencies": {
     "typia": "^3.4.18",

@@ -8,6 +8,10 @@ export const isNotNil = (object: unknown) => {
   return !isNil(object);
 };
 
+export const isString = (object: unknown): object is string => {
+  return is<string>(object);
+};
+
 export const isStringNullOrEmpty = (
   object?: unknown
 ): object is null | undefined | "" => {
@@ -44,3 +48,7 @@ export const isFloat = (value: unknown): value is number => {
 export const isDate = (object: unknown): object is Date => {
   return is<Date>(object) && !isNaN(object.getTime());
 };
+
+export const isBoolean = (object: unknown): object is boolean => {
+  return is<boolean>(object);
+}

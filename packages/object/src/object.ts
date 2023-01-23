@@ -79,17 +79,11 @@ export const omit = <
   }, {} as T) as DeepOmit<T, TKeys>;
 };
 
-export const tryOmit = <
-  T extends Record<PropertyKey, unknown>,
-  TKeys extends RecursiveAccessKeyOf<T>
->(
+export const tryOmit = <T extends Record<PropertyKey, unknown>>(
   object: T,
   keys: string[]
-): Omit<T, TKeys> => {
-  return omit(object, keys as RecursiveAccessKeyOf<T>[]) as unknown as Omit<
-    T,
-    TKeys
-  >;
+): T => {
+  return omit(object, keys as RecursiveAccessKeyOf<T>[]) as unknown as T;
 };
 
 /**
@@ -136,17 +130,11 @@ export const pick = <
   }, {} as T);
 };
 
-export const tryPick = <
-  T extends Record<PropertyKey, unknown>,
-  TKeys extends RecursiveAccessKeyOf<T>
->(
+export const tryPick = <T extends Record<PropertyKey, unknown>>(
   object: T,
   keys: string[]
-): Pick<T, TKeys> => {
-  return pick(object, keys as RecursiveAccessKeyOf<T>[]) as unknown as Pick<
-    T,
-    TKeys
-  >;
+): T => {
+  return pick(object, keys as RecursiveAccessKeyOf<T>[]) as unknown as T;
 };
 
 export const undefinedless = <T extends ObjectLike | ArrayLike<unknown>>(

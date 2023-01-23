@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { between, decompose, round } from "./number";
+import { between, decompose, round, addZeros } from "./number";
 
 describe("number", () => {
   it.each([
@@ -40,5 +40,16 @@ describe("number", () => {
   ])("should return a decomposition of a number", (number, decomposed) => {
     const actual = decompose(number);
     expect(actual).toEqual(decomposed);
+  });
+
+  it.each([
+    [11, 2, "11"],
+    [11, 1, "11"],
+    [11, 0, "11"],
+    [11, 3, "011"],
+    [11, 4, "0011"],
+  ])("should return a number filled with zeros", (number, length, expected) => {
+    const actual = addZeros(number, length);
+    expect(actual).toEqual(expected);
   });
 });

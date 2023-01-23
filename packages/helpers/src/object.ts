@@ -19,21 +19,46 @@ import { Maybe, RecursiveAccessKeyOf } from "./types";
  *  }
  * }
  *
- * getProp('prop1.prop2.prop3', obj) // 'value'
+ * getProp(obj, 'prop1.prop2.prop3') // 'value'
  */
 export const getProp = <T extends Record<PropertyKey, unknown>, K = unknown>(
-  obj: T,
-  prop: RecursiveAccessKeyOf<T>
+  obj: T | undefined,
+  prop: RecursiveAccessKeyOf<T>,
+  defaultValue: Maybe<K>
 ): Maybe<K> => {
-  if (isNil(obj) || isNil(prop)) return undefined;
+  if (isNil(obj) || isNil(prop)) return defaultValue;
 
   if (prop.includes(".")) {
     const [first, ...rest] = prop.split(".");
 
-    return getProp(obj[first] as T, rest.join(".") as RecursiveAccessKeyOf<T>);
+    return getProp(
+      obj[first] as T,
+      rest.join(".") as RecursiveAccessKeyOf<T>,
+      defaultValue
+    );
   }
 
   return obj[prop] as unknown as Maybe<K>;
+};
+
+export const setProp = <T extends Record<PropertyKey, unknown>, K = unknown>(
+  obj: T | undefined,
+  prop: RecursiveAccessKeyOf<T>,
+  value: Maybe<K>
+): void => {
+  if (isNil(obj) || isNil(prop)) return;
+
+  if (prop.includes(".")) {
+    const [first, ...rest] = prop.split(".");
+
+    return setProp(
+      obj[first] as T,
+      rest.join(".") as RecursiveAccessKeyOf<T>,
+      value
+    );
+  }
+
+  obj[prop] = value as any;
 };
 
 export const compareAsString = <T, K>(a: T, b: K) => {

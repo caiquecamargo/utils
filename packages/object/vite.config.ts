@@ -11,8 +11,8 @@ export default defineConfig({
     lib: {
       entry: path.resolve(__dirname, "index.ts"),
       name: "object",
-      fileName: "index.js",
-      formats: ["es"],
+      fileName: (format) => `index.${format}.js`,
+      formats: ["es", "cjs"],
     },
     rollupOptions: {
       treeshake: true,

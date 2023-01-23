@@ -1,17 +1,47 @@
 {
   "name": "@caiquecamargo/utils",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "0.0.56",
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.mjs"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/caiquecamargo/utils.git"
+  },
+  "author": "Caique de Camargo",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "generate": "npx zx scripts/generator.mjs",
-    "publish": "npx zx scripts/publisher.mjs"
+    "pub": "npx zx scripts/publisher.mjs",
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "typia": "^3.4.18",
+    "@rollup/plugin-typescript": "^11.0.0",
+    "@types/node": "^18.11.17",
+    "@vitest/coverage-c8": "^0.26.3",
+    "happy-dom": "^8.1.3",
+    "ts-node": "^10.9.1",
+    "tslib": "^2.4.1",
+    "ttypescript": "^1.5.15",
+    "typescript": "^4.9.4",
+    "vite": "^4.0.3",
+    "vitest": "^0.26.2",
+    "zx": "^7.1.1"
   },
   "keywords": [],
-  "author": "",
   "license": "ISC",
-  "dependencies": {
-    "zx": "^7.1.1"
-  }
+  "dependencies": {}
 }

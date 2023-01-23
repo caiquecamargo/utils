@@ -1,4 +1,5 @@
-import { createHash, randomBytes } from "crypto";
+import { SHA256, enc } from "crypto-js";
+import { nanoid } from "nanoid";
 import { is } from "typia";
 
 export const split = (str?: string, separator = ""): string[] =>
@@ -71,12 +72,18 @@ export const interpolate = (
 };
 
 export function createRandomString(length: number) {
-  const rnd = randomBytes(length);
-  return toBase64(rnd);
+  const rnd = nanoid(length);
+  return toBase64(rnd) as string;
 }
 
 export function sha256(str: string) {
-  return createHash("sha256").update(str).digest();
+  const hash = SHA256(str);
+  return Buffer.from(hash.toString(enc.Hex), 'hex');
+}
+
+export function hashString(str: string): string {
+  const hash = SHA256(str);
+  return hash.toString(enc.Hex);
 }
 
 export const isVowel = (char: string) => {
@@ -92,7 +99,7 @@ export const isConsonant = (char: string) => {
 export const s3Key = (key?: string) => {
   if (key) return decodeURIComponent(key.replace(/\+/g, " "));
 
-  return undefined;
+  return "";
 };
 
 export const sanitize = (string: string, withNumbers = false) => {
@@ -107,9 +114,16 @@ export const getLocale = (languageHeader: string, def: string) => {
   return ["pt-BR", "en-US"].indexOf(locale) > 0 ? locale : def;
 };
 
-export function* tokenizer(string: string) {
+interface TokenizerOptions {
+  clean?: boolean;
+}
+
+export function* tokenizer(string: string, options?: TokenizerOptions) {
+  const { clean = true } = options ?? {};
+
   let index = 0;
-  const cleanString = string.replace(/[\s|,|.|-|\(|\)|\\|\|]/g, "");
+  const cleanString = clean ? string.replace(/[\s|,|.|-|\(|\)|\\|\|]/g, "") : string;
+  
   while (index < cleanString.length) {
     const hasAppostrophe =
       index + 1 < cleanString.length && cleanString[index + 1] === "'";
@@ -169,3 +183,7 @@ export const asNormals = (
     hasAccent: !!accent,
   };
 };
+
+export function generateId() {
+  return Math.random().toString(36).slice(0, 7);
+}

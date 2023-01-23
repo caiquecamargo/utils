@@ -97,14 +97,13 @@ type Tail<T extends any[]> = ((...t: T) => void) extends (
   ? R
   : never;
 
-export type DeepOmit<T, Path extends string> = T extends object
-  ? UnDot<Path>["length"] extends 1
-    ? Omit<T, Path>
-    : {
-        [K in keyof T]: K extends UnDot<Path>[0]
-          ? DeepOmit<T[K], Dot<Tail<UnDot<Path>>>>
-          : T[K];
-      }
+export type DeepOmit<T, K extends string> = T extends object
+  ? {
+      [P in keyof T as P extends K ? never : P]: DeepOmit<
+        T[P],
+        K extends `${Exclude<P, symbol>}.${infer R}` ? R : never
+      >;
+    }
   : T;
 
 // type Input = {
@@ -113,7 +112,11 @@ export type DeepOmit<T, Path extends string> = T extends object
 //     c: string;
 //     d: string;
 //     e: string;
+//     f: {
+//       g: string;
+//       h: string;
+//     };
 //   };
 // };
 
-// type Output = DeepOmit<Input, "b.c" | "b.d">;
+// type Output = DeepOmit<Input, "b.c" | "b.d" | "b.f.g" | "a">;

@@ -122,30 +122,36 @@ export const diff = (
 };
 
 export const removes = (
-  obj: ObjectLike | ArrayLike<unknown>,
-  newObj: ObjectLike | ArrayLike<unknown>,
+  obj?: ObjectLike | ArrayLike<unknown>,
+  newObj?: ObjectLike | ArrayLike<unknown>,
   options: Partial<Options> = { cyclesFix: true }
 ) => {
+  if (!obj || !newObj) return [];
+
   const diffs = diff(obj, newObj, options);
 
   return diffs.filter((diff) => diff.type === "REMOVE") as DifferenceRemove[];
 };
 
 export const changes = (
-  obj: ObjectLike | ArrayLike<unknown>,
-  newObj: ObjectLike | ArrayLike<unknown>,
+  obj?: ObjectLike | ArrayLike<unknown>,
+  newObj?: ObjectLike | ArrayLike<unknown>,
   options: Partial<Options> = { cyclesFix: true }
 ) => {
+  if (!obj || !newObj) return [];
+
   const diffs = diff(obj, newObj, options);
 
   return diffs.filter((diff) => diff.type === "CHANGE") as DifferenceChange[];
 };
 
 export const adds = (
-  obj: ObjectLike | ArrayLike<unknown>,
-  newObj: ObjectLike | ArrayLike<unknown>,
+  obj?: ObjectLike | ArrayLike<unknown>,
+  newObj?: ObjectLike | ArrayLike<unknown>,
   options: Partial<Options> = { cyclesFix: true }
 ) => {
+  if (!obj || !newObj) return [];
+
   const diffs = diff(obj, newObj, options);
 
   return diffs.filter((diff) => diff.type === "CREATE") as DifferenceCreate[];

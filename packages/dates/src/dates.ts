@@ -1,9 +1,5 @@
 import { round } from "@caiquecamargo/number";
 
-export function dates(): string {
-  return "dates";
-}
-
 export const millisInDay = 86400000;
 
 export const nowPlusHours = (plusHours: number) => {
@@ -86,3 +82,21 @@ export function milisencondsToDates(miliseconds: number) {
     years,
   };
 }
+
+export function localeDate(date: Date, locale: string, timeZone = "UTC") {
+  const _date = new Date(date);
+  return _date.toLocaleDateString(locale, {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    timeZone
+  });
+}
+
+export function getGraphQlDate(date: Date) {
+  return date.toISOString().split("T")[0] as unknown as Date;
+}
+
+export const isStringDate = (date: string): boolean => {
+  return !!date && date.replace(/-/g, "").length === 8 && !isNaN(new Date(date).getTime());
+};

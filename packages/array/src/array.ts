@@ -33,11 +33,13 @@ export const sortByTarget = <
     ? RecursiveAccessKeyOf<T>
     : never
 ) => {
+  if (!target || !target.length) return unordered;
+
   return target.reduce((acc, curr) => {
     const found = unordered.filter((item) => {
       if (is<Record<PropertyKey, unknown>>(item) && prop) {
         return (
-          getProp(item, prop as RecursiveAccessKeyOf<typeof item>) === curr
+          getProp(item, prop as RecursiveAccessKeyOf<typeof item>, "") === curr
         );
       }
 
@@ -135,15 +137,6 @@ export const reversedList = (start: number, end: number, step = 1) => {
   return list(start, end, step).reverse();
 };
 
-export const addZeros = (num: number | string, size: number) => {
-  if (!is<number | string>(num)) return num;
-
-  let s = num.toString();
-  while (s.length < size) s = "0" + s;
-
-  return s;
-};
-
 export const inChunks = <T>(array: T[], size: number): T[][] => {
   return array.reduce((all, one, i) => {
     const ch = Math.floor(i / size);
@@ -152,3 +145,140 @@ export const inChunks = <T>(array: T[], size: number): T[][] => {
     return all;
   }, [] as T[][]);
 };
+
+export const sift = <T>(
+  list: readonly T[],
+  condition?: (item: T) => boolean
+): NonNullable<T>[] => {
+  return (
+    (list?.filter((x) =>
+      condition ? condition(x) : !!x
+    ) as NonNullable<T>[]) ?? []
+  );
+};
+
+/**
+ * Select performs a filter and a mapper inside of a reduce,
+ * only iterating the list one time.
+ *
+ * @example
+ * select([1, 2, 3, 4], x => x*x, x > 2) == [9, 16]
+ */
+export const select = <T, K>(
+  array: readonly T[],
+  mapper: (item: T, index: number) => K,
+  condition: (item: T, index: number) => boolean
+) => {
+  if (!array) return []
+  return array.reduce((acc, item, index) => {
+    if (!condition(item, index)) return acc
+    acc.push(mapper(item, index))
+    return acc
+  }, [] as K[])
+}
+
+/**
+ * Go through a list of items, starting with the first item,
+ * and comparing with the second. Keep the one you want then
+ * compare that to the next item in the list with the same
+ *
+ * Ex. const greatest = () => boil(numbers, (a, b) => a > b)
+ */
+export const boil = <T>(
+  array: readonly T[],
+  compareFunc: (a: T, b: T) => T
+) => {
+  if (!array || (array.length ?? 0) === 0) return null
+  return array.reduce(compareFunc)
+}
+
+/**
+ * Sum all numbers in an array. Optionally provide a function
+ * to convert objects in the array to number values.
+ */
+export const sum = <T extends number | object>(
+  array: readonly T[],
+  fn?: (item: T) => number
+) => {
+  return (array || []).reduce(
+    (acc, item) => acc + (fn ? fn(item) : (item as number)),
+    0
+  )
+}
+
+/**
+ * Max gets the greatest value from a list
+ *
+ * Ex. max([{ num: 1 }, { num: 2 }], x => x.num) == 2
+ */
+export const max = <T extends number | object>(
+  array: readonly T[],
+  getter?: (item: T) => number
+) => {
+  const get = getter ? getter : (v: any) => v
+  return boil(array, (a, b) => (get(a) > get(b) ? a : b))
+}
+
+/**
+ * Min gets the smallest value from a list
+ *
+ * Ex. max([{ num: 1 }, { num: 2 }], x => x.num) == 1
+ */
+export const min = <T extends number | object>(
+  array: readonly T[],
+  getter?: (item: T) => number
+) => {
+  const get = getter ? getter : (v: any) => v
+  return boil(array, (a, b) => (get(a) < get(b) ? a : b))
+}
+
+/**
+ * Splits a single list into many lists of the desired size. If
+ * given a list of 10 items and a size of 2, it will return 5
+ * lists with 2 items each
+ */
+export const cluster = <T>(list: readonly T[], size: number = 2): T[][] => {
+  const clusterCount = Math.ceil(list.length / size)
+  return new Array(clusterCount).fill(null).map((_c: null, i: number) => {
+    return list.slice(i * size, i * size + size)
+  })
+}
+
+/**
+ * Given a list of items returns a new list with only
+ * unique items. Accepts an optional identity function
+ * to convert each item in the list to a comparable identity
+ * value
+ */
+export const unique = <T, K extends string | number | symbol>(
+  array: readonly T[],
+  toKey?: (item: T) => K
+): T[] => {
+  const valueMap = array.reduce((acc, item) => {
+    const key = toKey ? toKey(item) : (item as any as string | number | symbol)
+    if (acc[key]) return acc
+    acc[key] = item
+    return acc
+  }, {} as Record<string | number | symbol, T>)
+  return Object.values(valueMap)
+}
+
+/**
+ * Get the first item in an array or a default value
+ */
+export const first = <T>(
+  array: readonly T[],
+  defaultValue: T | null | undefined = undefined
+) => {
+  return array?.length > 0 ? array[0] : defaultValue
+}
+
+/**
+ * Get the last item in an array or a default value
+ */
+export const last = <T>(
+  array: readonly T[],
+  defaultValue: T | null | undefined = undefined
+) => {
+  return array?.length > 0 ? array[array.length - 1] : defaultValue
+}
