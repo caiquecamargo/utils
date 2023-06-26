@@ -11,11 +11,12 @@ export default defineConfig({
     lib: {
       entry: path.resolve(__dirname, "index.ts"),
       name: "string",
-      fileName: (format) => `index.${format}.js`,
+      fileName: (format) => `index.${format == "es" ? "mjs" : format}`,
       formats: ["es", "cjs"],
     },
     rollupOptions: {
       treeshake: true,
+      external: [],
     },
   },
   plugins: [

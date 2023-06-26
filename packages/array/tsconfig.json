@@ -1,26 +1,5 @@
 {
-  "compilerOptions": {
-    "target": "esnext",
-    "useDefineForClassFields": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "strictPropertyInitialization": false,
-    "strict": true,
-    "jsx": "preserve",
-    "sourceMap": true,
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "lib": [
-      "esnext",
-      "dom"
-    ],
-    "baseUrl": ".",
-    "plugins": [
-      {
-        "transform": "typia/lib/transform"
-      }
-    ]
-  },
+  "extends": "../../tsconfig.json",
   "include": [
     "index.ts",
     "src/**/*.ts",

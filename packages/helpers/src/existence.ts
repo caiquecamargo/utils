@@ -37,6 +37,14 @@ export const isArrayNullOrEmpty = (
   return isNil(array) || (isArray(array) && array.length === 0);
 };
 
+export const isFunction = (object: unknown): object is Function => {
+  return is<Function>(object);
+}
+
+export const isNumber = (object: unknown): object is number => {
+  return is<number>(object);
+}
+
 export const isInt = (value: unknown): value is number => {
   return is<number>(value) && value % 1 === 0;
 };
@@ -52,3 +60,7 @@ export const isDate = (object: unknown): object is Date => {
 export const isBoolean = (object: unknown): object is boolean => {
   return is<boolean>(object);
 }
+
+export const isObject = (object: unknown): object is object => {
+  return is<object>(object) && !isArray(object) && !isDate(object) && !isFunction(object);
+};

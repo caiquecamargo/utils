@@ -1,6 +1,6 @@
 {
   "name": "@caiquecamargo/astro",
-  "version": "0.0.56",
+  "version": "0.0.69",
   "description": "Astro components",
   "type": "module",
   "main": "index.ts",
@@ -15,7 +15,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "echo \"not necessary\""
+    "build": "mkdir -p dist && cp -r components dist/components"
   },
   "devDependencies": {
     "astro": "^1.9.2",

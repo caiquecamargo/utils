@@ -1,4 +1,3 @@
-import { SHA256, enc } from "crypto-js";
 import { nanoid } from "nanoid";
 import { is } from "typia";
 
@@ -74,16 +73,6 @@ export const interpolate = (
 export function createRandomString(length: number) {
   const rnd = nanoid(length);
   return toBase64(rnd) as string;
-}
-
-export function sha256(str: string) {
-  const hash = SHA256(str);
-  return Buffer.from(hash.toString(enc.Hex), 'hex');
-}
-
-export function hashString(str: string): string {
-  const hash = SHA256(str);
-  return hash.toString(enc.Hex);
 }
 
 export const isVowel = (char: string) => {

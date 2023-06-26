@@ -11,12 +11,12 @@ export default defineConfig({
     lib: {
       entry: path.resolve(__dirname, "index.ts"),
       name: "colors",
-      fileName: (format) => `index.${format}.js`,
+      fileName: (format) => `index.${format == "es" ? "mjs" : format}`,
       formats: ["es", "cjs"],
     },
     rollupOptions: {
       treeshake: true,
-      external: ["tailwindcss/colors", "@caiquecamargo/helpers"],
+      external: ["tailwindcss/colors"],
     },
   },
   plugins: [

@@ -282,3 +282,54 @@ export const last = <T>(
 ) => {
   return array?.length > 0 ? array[array.length - 1] : defaultValue
 }
+
+/**
+ * Sorts an array of items into groups. The return value is a map where the keys are
+ * the group ids the given getGroupId function produced and the value is an array of
+ * each item in that group.
+ */
+export const group = <T, Key extends string | number | symbol>(
+  array: readonly T[],
+  getGroupId: (item: T) => Key
+): Partial<Record<Key, T[]>> => {
+  return array.reduce((acc, item) => {
+    const groupId = getGroupId(item)
+    if (!acc[groupId]) acc[groupId] = []
+    acc[groupId].push(item)
+    return acc
+  }, {} as Record<Key, T[]>)
+}
+
+export const counting = <T, TId extends string | number | symbol>(
+  list: readonly T[],
+  identity: (item: T) => TId
+): Record<TId, number> => {
+  if (!list) return {} as Record<TId, number>
+  return list.reduce((acc, item) => {
+    const id = identity(item)
+    acc[id] = (acc[id] ?? 0) + 1
+    return acc
+  }, {} as Record<TId, number>)
+}
+
+/**
+ * Split an array into two array based on
+ * a true/false condition function
+ */
+export const fork = <T>(
+  list: readonly T[],
+  condition: (item: T) => boolean
+): [T[], T[]] => {
+  if (!list) return [[], []]
+  return list.reduce(
+    (acc, item) => {
+      const [a, b] = acc
+      if (condition(item)) {
+        return [[...a, item], b]
+      } else {
+        return [a, [...b, item]]
+      }
+    },
+    [[], []] as [T[], T[]]
+  )
+}
