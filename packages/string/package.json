@@ -1,6 +1,6 @@
 {
   "name": "@caiquecamargo/string",
-  "version": "0.0.69",
+  "version": "0.0.73",
   "files": [
     "dist"
   ],
@@ -27,11 +27,7 @@
     "pub": "npx zx scripts/publisher.mjs",
     "build": "vite build"
   },
-  "dependencies": {
-    "crypto-js": "^4.1.1"
-  },
   "devDependencies": {
-    "@types/crypto-js": "^4.1.1",
     "nanoid": "^4.0.0"
   },
   "keywords": [],

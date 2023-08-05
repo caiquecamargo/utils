@@ -1,6 +1,6 @@
 {
   "name": "@caiquecamargo/astro",
-  "version": "0.0.69",
+  "version": "0.0.73",
   "description": "Astro components",
   "type": "module",
   "main": "index.ts",

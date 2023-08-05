@@ -16,7 +16,7 @@ export default defineConfig({
     },
     rollupOptions: {
       treeshake: true,
-      external: [],
+      external: ["crypto"],
     },
   },
   plugins: [
