@@ -5,9 +5,9 @@
     "module": "esnext",
     "moduleResolution": "node",
     "strictPropertyInitialization": false,
+    "strictNullChecks": true,
     "strict": true,
     "jsx": "preserve",
-    "sourceMap": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "lib": [

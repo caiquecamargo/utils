@@ -1,94 +1,28 @@
 {
   "name": "@caiquecamargo/utils",
-  "version": "0.0.71",
+  "version": "0.1.0",
   "files": [
     "dist"
   ],
   "type": "module",
   "exports": {
-    "./array": {
-      "import": "./dist/array/index.mjs",
-      "require": "./dist/array/index.cjs",
-      "types": "./dist/array/index.d.ts",
-      "default": "./dist/array/index.mjs"
-    },
-    "./colors": {
-      "import": "./dist/colors/index.mjs",
-      "require": "./dist/colors/index.cjs",
-      "types": "./dist/colors/index.d.ts",
-      "default": "./dist/colors/index.mjs"
-    },
     "./composables": {
       "import": "./dist/composables/index.mjs",
       "require": "./dist/composables/index.cjs",
       "types": "./dist/composables/index.d.ts",
       "default": "./dist/composables/index.mjs"
     },
-    "./curry": {
-      "import": "./dist/curry/index.mjs",
-      "require": "./dist/curry/index.cjs",
-      "types": "./dist/curry/index.d.ts",
-      "default": "./dist/curry/index.mjs"
+    "./core": {
+      "import": "./dist/core/index.mjs",
+      "require": "./dist/core/index.cjs",
+      "types": "./dist/core/index.d.ts",
+      "default": "./dist/core/index.mjs"
     },
-    "./dates": {
-      "import": "./dist/dates/index.mjs",
-      "require": "./dist/dates/index.cjs",
-      "types": "./dist/dates/index.d.ts",
-      "default": "./dist/dates/index.mjs"
-    },
-    "./fetch": {
-      "import": "./dist/fetch/index.mjs",
-      "require": "./dist/fetch/index.cjs",
-      "types": "./dist/fetch/index.d.ts",
-      "default": "./dist/fetch/index.mjs"
-    },
-    "./helpers": {
-      "import": "./dist/helpers/index.mjs",
-      "require": "./dist/helpers/index.cjs",
-      "types": "./dist/helpers/index.d.ts",
-      "default": "./dist/helpers/index.mjs"
-    },
-    "./image": {
-      "import": "./dist/image/index.mjs",
-      "require": "./dist/image/index.cjs",
-      "types": "./dist/image/index.d.ts",
-      "default": "./dist/image/index.mjs"
-    },
-    "./notification": {
-      "import": "./dist/notification/index.mjs",
-      "require": "./dist/notification/index.cjs",
-      "types": "./dist/notification/index.d.ts",
-      "default": "./dist/notification/index.mjs"
-    },
-    "./number": {
-      "import": "./dist/number/index.mjs",
-      "require": "./dist/number/index.cjs",
-      "types": "./dist/number/index.d.ts",
-      "default": "./dist/number/index.mjs"
-    },
-    "./object": {
-      "import": "./dist/object/index.mjs",
-      "require": "./dist/object/index.cjs",
-      "types": "./dist/object/index.d.ts",
-      "default": "./dist/object/index.mjs"
-    },
-    "./pagination": {
-      "import": "./dist/pagination/index.mjs",
-      "require": "./dist/pagination/index.cjs",
-      "types": "./dist/pagination/index.d.ts",
-      "default": "./dist/pagination/index.mjs"
-    },
-    "./promises": {
-      "import": "./dist/promises/index.mjs",
-      "require": "./dist/promises/index.cjs",
-      "types": "./dist/promises/index.d.ts",
-      "default": "./dist/promises/index.mjs"
-    },
-    "./string": {
-      "import": "./dist/string/index.mjs",
-      "require": "./dist/string/index.cjs",
-      "types": "./dist/string/index.d.ts",
-      "default": "./dist/string/index.mjs"
+    "./web": {
+      "import": "./dist/web/index.mjs",
+      "require": "./dist/web/index.cjs",
+      "types": "./dist/web/index.d.ts",
+      "default": "./dist/web/index.mjs"
     }
   },
   "repository": {
@@ -99,69 +33,39 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "generate": "npx zx scripts/generator.mjs",
-    "pub": "npx zx scripts/publisher.mjs",
-    "build": "vite build"
+    "pub": "npx zx scripts/publish.mjs",
+    "prepare": "ts-patch install"
   },
   "devDependencies": {
-    "@rollup/plugin-typescript": "^11.1.0",
-    "@types/node": "^18.16.6",
-    "@vitest/coverage-c8": "^0.26.3",
-    "happy-dom": "^8.9.0",
+    "@rollup/plugin-typescript": "^11.1.2",
+    "@types/node": "^18.17.3",
+    "@vitest/coverage-v8": "^0.34.1",
+    "happy-dom": "^10.8.0",
     "ts-node": "^10.9.1",
-    "tslib": "^2.5.0",
-    "ttypescript": "^1.5.15",
-    "typescript": "^4.9.5",
-    "typia": "^3.8.4",
-    "vite": "^4.3.5",
-    "vitest": "^0.26.3",
-    "zx": "^7.2.2"
+    "ts-patch": "^3.0.2",
+    "typescript": "^5.1.6",
+    "typia": "^4.1.16",
+    "vite": "^4.4.8",
+    "vitest": "^0.34.1",
+    "zx": "^7.2.3"
   },
   "keywords": [],
   "license": "ISC",
   "typesVersions": {
     "*": {
-      "array": [
-        "dist/array/index.d.ts"
-      ],
-      "colors": [
-        "dist/colors/index.d.ts"
-      ],
       "composables": [
         "dist/composables/index.d.ts"
       ],
-      "curry": [
-        "dist/curry/index.d.ts"
+      "core": [
+        "dist/core/index.d.ts"
       ],
-      "dates": [
-        "dist/dates/index.d.ts"
-      ],
-      "fetch": [
-        "dist/fetch/index.d.ts"
-      ],
-      "helpers": [
-        "dist/helpers/index.d.ts"
-      ],
-      "image": [
-        "dist/image/index.d.ts"
-      ],
-      "notification": [
-        "dist/notification/index.d.ts"
-      ],
-      "number": [
-        "dist/number/index.d.ts"
-      ],
-      "object": [
-        "dist/object/index.d.ts"
-      ],
-      "pagination": [
-        "dist/pagination/index.d.ts"
-      ],
-      "promises": [
-        "dist/promises/index.d.ts"
-      ],
-      "string": [
-        "dist/string/index.d.ts"
+      "web": [
+        "dist/web/index.d.ts"
       ]
     }
+  },
+  "packageManager": "pnpm@8.6.11",
+  "engines": {
+    "node": "16.20.0"
   }
 }

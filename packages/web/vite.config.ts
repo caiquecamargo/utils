@@ -10,13 +10,13 @@ export default defineConfig({
     target: "esnext",
     lib: {
       entry: path.resolve(__dirname, "index.ts"),
-      name: "composables",
+      name: "image",
       fileName: (format) => `index.${format == "es" ? "mjs" : format}`,
       formats: ["es", "cjs"],
     },
     rollupOptions: {
       treeshake: true,
-      external: ["vue", "@vueuse/core"],
+      external: [],
     },
   },
   plugins: [

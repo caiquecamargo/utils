@@ -1,0 +1,68 @@
+$schema: 'https://moonrepo.dev/schemas/tasks.json'
+
+fileGroups:
+  sources:
+    - 'src/**/*'
+    - 'vite.config.ts'
+    - 'index.ts'
+    - 'package.json'
+
+tasks:
+  set-version:
+    command:
+      - 'zx'
+      - '$workspaceRoot/scripts/set-version.mjs'
+    args:
+      - '--path'
+      - '$projectRoot'
+      - '--project'
+      - '$project'
+      - '--alias'
+      - '$projectAlias'
+    local: true
+  pub:
+    command:
+      - 'pnpm'
+      - 'publish'
+      - '--no-git-checks'
+    local: true
+    deps:
+      - 'build'
+      - 'set-version'
+  build:
+    command:
+      - 'vite'
+      - 'build'
+    inputs:
+      - '@group(sources)'
+    outputs:
+      - 'dist'
+  dev:
+    command:
+      - 'vite'
+      - '--host'
+    local: true
+  serve:
+    command:
+      - 'vite'
+      - 'preview'
+      - '--host'
+    local: true
+  test:
+    command:
+      - 'vitest'
+      - 'run'
+  test-coverage:
+    command:
+      - 'vitest'
+      - '--coverage'
+    inputs:
+      - '@globs(sources)'
+    outputs:
+      - 'coverage'
+    local: true
+  test-watch:
+    command:
+      - 'vitest'
+      - 'watch'
+    local: true

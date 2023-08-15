@@ -1,0 +1,7 @@
+language: 'typescript'
+type: 'library'
+platform: 'node'
+
+project:
+  name: '{{ name }}'
+  description: '{{ description }}'

@@ -1,0 +1,7 @@
+language: 'typescript'
+type: 'library'
+platform: 'node'
+
+project:
+  name: 'web'
+  description: 'A collection of utilities with target only on web runtime.'
